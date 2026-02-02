@@ -12,6 +12,7 @@
       background: black;
       width: 100%;
       overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
@@ -23,7 +24,193 @@
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* change to contain if you want letterbox */
+      object-fit: cover;
+    }
+
+    /* === Баланс в углу === */
+    .balance-btn {
+      position: fixed;
+      top: 60px;
+      left: 15px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 2px solid #4fc3dc;
+      border-radius: 20px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 0 15px rgba(79, 195, 220, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .balance-btn:active {
+      transform: scale(0.95);
+    }
+
+    .crystal-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+    }
+
+    .crystal-icon::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 20px solid #4fc3dc;
+      filter: drop-shadow(0 0 4px #4fc3dc);
+    }
+
+    .crystal-icon::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 10px solid #2d8a9c;
+    }
+
+    .balance-amount {
+      color: #4fc3dc;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 0 0 5px rgba(79, 195, 220, 0.5);
+    }
+
+    .plus-icon {
+      color: #7bed9f;
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 4px;
+    }
+
+    /* === Затемнение фона === */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    /* === Меню пополнения === */
+    .menu {
+      background: linear-gradient(145deg, #f4e4bc 0%, #e8d4a8 50%, #dcc498 100%);
+      border: 4px solid #8b5a2b;
+      border-radius: 15px;
+      padding: 25px;
+      width: 280px;
+      box-shadow: 
+        0 0 0 2px #a0522d,
+        inset 0 0 20px rgba(139, 90, 43, 0.1),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .menu::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 2px dashed #c4a574;
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    .menu-title {
+      text-align: center;
+      color: #5d3a1a;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 0 #f5deb3;
+    }
+
+    .menu-text {
+      color: #6b4423;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .amount-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .amount-btn {
+      background: linear-gradient(145deg, #fff8e7, #f0e0c0);
+      border: 2px solid #a0522d;
+      border-radius: 8px;
+      padding: 12px 5px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #5d3a1a;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .amount-btn:hover, .amount-btn.selected {
+      background: linear-gradient(145deg, #4fc3dc, #3aa8c1);
+      color: white;
+      border-color: #2d8a9c;
+      box-shadow: 0 0 10px rgba(79, 195, 220, 0.5);
+    }
+
+    .confirm-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(145deg, #7bed9f, #5dd47a);
+      border: 3px solid #3d8b5a;
+      border-radius: 10px;
+      color: #1a4d2e;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .confirm-btn:hover {
+      background: linear-gradient(145deg, #5dd47a, #4ac268);
+      transform: translateY(-2px);
+    }
+
+    .confirm-btn:active {
+      transform: translateY(0);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #8b5a2b;
+      cursor: pointer;
+      padding: 5px;
     }
   </style>
 </head>
@@ -33,21 +220,144 @@
     <source src="https://packaged-media.redd.it/2evrqyoohb6c1/pb/m2-res_480p.mp4?m=DASHPlaylist.mpd&v=1&e=1769986800&s=2fcc917e93df33defb0a8d2d6199819bebfc629f" type="video/mp4" />
   </video>
 
-  <script>
-    const tg = Telegram.WebApp;
+  <!-- Кнопка баланса -->
+  <div class="balance-btn" id="balanceBtn">
+    <div class="crystal-icon"></div>
+    <span class="balance-amount" id="balanceDisplay">0</span>
+    <span class="plus-icon">+</span>
+  </div>
 
+  <!-- Меню пополнения -->
+  <div class="overlay" id="overlay">
+    <div class="menu">
+      <button class="close-btn" id="closeBtn">×</button>
+      <div class="menu-title">💎 Кристаллы</div>
+      <div class="menu-text">Выберите количество кристаллов для пополнения баланса</div>
+      
+      <div class="amount-options">
+        <button class="amount-btn" data-amount="10">10</button>
+        <button class="amount-btn" data-amount="50">50</button>
+        <button class="amount-btn" data-amount="100">100</button>
+        <button class="amount-btn" data-amount="250">250</button>
+        <button class="amount-btn" data-amount="500">500</button>
+        <button class="amount-btn" data-amount="1000">1000</button>
+      </div>
+      
+      <button class="confirm-btn" id="confirmBtn">✨ Пополнить</button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
 
     function applyViewport() {
       document.body.style.height = tg.viewportHeight + 'px';
     }
-
     applyViewport();
     tg.onEvent('viewportChanged', applyViewport);
 
     tg.setHeaderColor('#000000');
     tg.setBackgroundColor('#000000');
+
+    // === Авто-плей видео (фикс для мобильных) ===
+    const video = document.getElementById('video');
+    document.addEventListener('touchstart', () => {
+      video.play().catch(() => {});
+    }, { once: true });
+
+    // Пробуем запустить сразу
+    video.play().catch(() => {});
+
+    // === Система баланса ===
+    const balanceBtn = document.getElementById('balanceBtn');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const balanceDisplay = document.getElementById('balanceDisplay');
+    const amountBtns = document.querySelectorAll('.amount-btn');
+
+    let selectedAmount = 0;
+    let balance = 0;
+
+    // Загрузка баланса
+    function loadBalance() {
+      // Способ 1: Telegram CloudStorage (если доступен)
+      if (tg.CloudStorage) {
+        tg.CloudStorage.getItem('crystals', (err, value) => {
+          if (!err && value) {
+            balance = parseInt(value) || 0;
+          } else {
+            // Фолбэк на localStorage
+            balance = parseInt(localStorage.getItem('crystals')) || 0;
+          }
+          balanceDisplay.textContent = balance;
+        });
+      } else {
+        // Способ 2: localStorage
+        balance = parseInt(localStorage.getItem('crystals')) || 0;
+        balanceDisplay.textContent = balance;
+      }
+    }
+
+    // Сохранение баланса
+    function saveBalance() {
+      // Сохраняем в оба места для надёжности
+      localStorage.setItem('crystals', balance);
+      
+      if (tg.CloudStorage) {
+        tg.CloudStorage.setItem('crystals', balance.toString());
+      }
+      
+      balanceDisplay.textContent = balance;
+    }
+
+    // Открыть меню
+    balanceBtn.addEventListener('click', () => {
+      overlay.classList.add('active');
+      selectedAmount = 0;
+      amountBtns.forEach(btn => btn.classList.remove('selected'));
+    });
+
+    // Закрыть меню
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+
+    // Выбор суммы
+    amountBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        amountBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedAmount = parseInt(btn.dataset.amount);
+      });
+    });
+
+    // Пополнение
+    confirmBtn.addEventListener('click', () => {
+      if (selectedAmount > 0) {
+        balance += selectedAmount;
+        saveBalance();
+        
+        // Анимация/фидбек
+        tg.HapticFeedback.impactOccurred('medium');
+        
+        overlay.classList.remove('active');
+        selectedAmount = 0;
+      } else {
+        tg.showAlert('Выберите количество кристаллов!');
+      }
+    });
+
+    // Инициализация
+    loadBalance();
   </script>
 </body>
 </html>
