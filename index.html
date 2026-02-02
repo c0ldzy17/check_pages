@@ -27,68 +27,97 @@
       object-fit: cover;
     }
 
-    /* === Баланс в углу === */
+    /* === Кнопка баланса — тот же стиль что и меню === */
     .balance-btn {
       position: fixed;
       top: 60px;
       left: 15px;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border: 2px solid #4fc3dc;
-      border-radius: 20px;
-      padding: 8px 14px;
+      background: linear-gradient(145deg, #f4e4bc 0%, #e8d4a8 50%, #dcc498 100%);
+      border: 3px solid #8b5a2b;
+      border-radius: 15px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       cursor: pointer;
       z-index: 100;
-      box-shadow: 0 0 15px rgba(79, 195, 220, 0.3);
+      box-shadow: 
+        0 0 0 1px #a0522d,
+        inset 0 0 10px rgba(139, 90, 43, 0.1),
+        0 4px 15px rgba(0, 0, 0, 0.4);
       transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .balance-btn::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      border: 1px dashed #c4a574;
+      border-radius: 10px;
+      pointer-events: none;
     }
 
     .balance-btn:active {
       transform: scale(0.95);
     }
 
+    /* Кристалл иконка */
     .crystal-icon {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 26px;
       position: relative;
+      flex-shrink: 0;
     }
 
     .crystal-icon::before {
       content: '';
       position: absolute;
+      top: 0;
+      left: 3px;
       width: 0;
       height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 20px solid #4fc3dc;
-      filter: drop-shadow(0 0 4px #4fc3dc);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 14px solid #5bbcd4;
+      filter: drop-shadow(0 0 3px rgba(91, 188, 212, 0.6));
     }
 
     .crystal-icon::after {
       content: '';
       position: absolute;
-      top: 10px;
+      top: 12px;
+      left: 3px;
       width: 0;
       height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-top: 10px solid #2d8a9c;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid #3d9bb0;
     }
 
     .balance-amount {
-      color: #4fc3dc;
+      color: #5d3a1a;
       font-weight: bold;
-      font-size: 16px;
-      text-shadow: 0 0 5px rgba(79, 195, 220, 0.5);
+      font-size: 18px;
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+      min-width: 30px;
     }
 
-    .plus-icon {
-      color: #7bed9f;
-      font-size: 18px;
+    .plus-badge {
+      background: linear-gradient(145deg, #7bed9f, #5dd47a);
+      border: 2px solid #3d8b5a;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a4d2e;
+      font-size: 16px;
       font-weight: bold;
-      margin-left: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     /* === Затемнение фона === */
@@ -135,12 +164,49 @@
       pointer-events: none;
     }
 
+    .menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .menu-crystal {
+      width: 28px;
+      height: 32px;
+      position: relative;
+    }
+
+    .menu-crystal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 4px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 18px solid #5bbcd4;
+      filter: drop-shadow(0 0 4px rgba(91, 188, 212, 0.8));
+    }
+
+    .menu-crystal::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 4px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid #3d9bb0;
+    }
+
     .menu-title {
-      text-align: center;
       color: #5d3a1a;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
-      margin-bottom: 20px;
       text-shadow: 1px 1px 0 #f5deb3;
     }
 
@@ -150,6 +216,27 @@
       text-align: center;
       margin-bottom: 15px;
       line-height: 1.4;
+    }
+
+    .current-balance {
+      text-align: center;
+      padding: 10px;
+      background: rgba(139, 90, 43, 0.1);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #c4a574;
+    }
+
+    .current-balance-label {
+      font-size: 12px;
+      color: #8b5a2b;
+      margin-bottom: 3px;
+    }
+
+    .current-balance-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #5d3a1a;
     }
 
     .amount-options {
@@ -172,10 +259,10 @@
     }
 
     .amount-btn:hover, .amount-btn.selected {
-      background: linear-gradient(145deg, #4fc3dc, #3aa8c1);
+      background: linear-gradient(145deg, #5bbcd4, #4aa8c0);
       color: white;
-      border-color: #2d8a9c;
-      box-shadow: 0 0 10px rgba(79, 195, 220, 0.5);
+      border-color: #3d9bb0;
+      box-shadow: 0 0 10px rgba(91, 188, 212, 0.5);
     }
 
     .confirm-btn {
@@ -201,16 +288,41 @@
       transform: translateY(0);
     }
 
+    .confirm-btn:disabled {
+      background: linear-gradient(145deg, #ccc, #bbb);
+      border-color: #999;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .close-btn {
       position: absolute;
-      top: 10px;
-      right: 15px;
+      top: 8px;
+      right: 12px;
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 28px;
       color: #8b5a2b;
       cursor: pointer;
       padding: 5px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #5d3a1a;
+    }
+
+    /* Анимация добавления */
+    @keyframes popIn {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .balance-btn.animate {
+      animation: popIn 0.3s ease;
     }
   </style>
 </head>
@@ -224,26 +336,36 @@
   <div class="balance-btn" id="balanceBtn">
     <div class="crystal-icon"></div>
     <span class="balance-amount" id="balanceDisplay">0</span>
-    <span class="plus-icon">+</span>
+    <div class="plus-badge">+</div>
   </div>
 
   <!-- Меню пополнения -->
   <div class="overlay" id="overlay">
     <div class="menu">
       <button class="close-btn" id="closeBtn">×</button>
-      <div class="menu-title">💎 Кристаллы</div>
-      <div class="menu-text">Выберите количество кристаллов для пополнения баланса</div>
       
-      <div class="amount-options">
-        <button class="amount-btn" data-amount="10">10</button>
-        <button class="amount-btn" data-amount="50">50</button>
-        <button class="amount-btn" data-amount="100">100</button>
-        <button class="amount-btn" data-amount="250">250</button>
-        <button class="amount-btn" data-amount="500">500</button>
-        <button class="amount-btn" data-amount="1000">1000</button>
+      <div class="menu-header">
+        <div class="menu-crystal"></div>
+        <div class="menu-title">Кристаллы</div>
       </div>
       
-      <button class="confirm-btn" id="confirmBtn">✨ Пополнить</button>
+      <div class="current-balance">
+        <div class="current-balance-label">Текущий баланс</div>
+        <div class="current-balance-value" id="menuBalance">0</div>
+      </div>
+      
+      <div class="menu-text">Выберите количество кристаллов для пополнения</div>
+      
+      <div class="amount-options">
+        <button class="amount-btn" data-amount="10">+10</button>
+        <button class="amount-btn" data-amount="50">+50</button>
+        <button class="amount-btn" data-amount="100">+100</button>
+        <button class="amount-btn" data-amount="250">+250</button>
+        <button class="amount-btn" data-amount="500">+500</button>
+        <button class="amount-btn" data-amount="1000">+1000</button>
+      </div>
+      
+      <button class="confirm-btn" id="confirmBtn" disabled>Выберите сумму</button>
     </div>
   </div>
 
@@ -261,14 +383,16 @@
     tg.setHeaderColor('#000000');
     tg.setBackgroundColor('#000000');
 
-    // === Авто-плей видео (фикс для мобильных) ===
+    // === Авто-плей видео ===
     const video = document.getElementById('video');
-    document.addEventListener('touchstart', () => {
+    
+    function tryPlayVideo() {
       video.play().catch(() => {});
-    }, { once: true });
-
-    // Пробуем запустить сразу
-    video.play().catch(() => {});
+    }
+    
+    tryPlayVideo();
+    document.addEventListener('touchstart', tryPlayVideo, { once: true });
+    document.addEventListener('click', tryPlayVideo, { once: true });
 
     // === Система баланса ===
     const balanceBtn = document.getElementById('balanceBtn');
@@ -276,6 +400,7 @@
     const closeBtn = document.getElementById('closeBtn');
     const confirmBtn = document.getElementById('confirmBtn');
     const balanceDisplay = document.getElementById('balanceDisplay');
+    const menuBalance = document.getElementById('menuBalance');
     const amountBtns = document.querySelectorAll('.amount-btn');
 
     let selectedAmount = 0;
@@ -283,34 +408,33 @@
 
     // Загрузка баланса
     function loadBalance() {
-      // Способ 1: Telegram CloudStorage (если доступен)
       if (tg.CloudStorage) {
         tg.CloudStorage.getItem('crystals', (err, value) => {
           if (!err && value) {
             balance = parseInt(value) || 0;
           } else {
-            // Фолбэк на localStorage
             balance = parseInt(localStorage.getItem('crystals')) || 0;
           }
-          balanceDisplay.textContent = balance;
+          updateDisplay();
         });
       } else {
-        // Способ 2: localStorage
         balance = parseInt(localStorage.getItem('crystals')) || 0;
-        balanceDisplay.textContent = balance;
+        updateDisplay();
       }
     }
 
     // Сохранение баланса
     function saveBalance() {
-      // Сохраняем в оба места для надёжности
       localStorage.setItem('crystals', balance);
-      
       if (tg.CloudStorage) {
         tg.CloudStorage.setItem('crystals', balance.toString());
       }
-      
+      updateDisplay();
+    }
+
+    function updateDisplay() {
       balanceDisplay.textContent = balance;
+      menuBalance.textContent = balance;
     }
 
     // Открыть меню
@@ -318,17 +442,19 @@
       overlay.classList.add('active');
       selectedAmount = 0;
       amountBtns.forEach(btn => btn.classList.remove('selected'));
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Выберите сумму';
+      updateDisplay();
     });
 
     // Закрыть меню
-    closeBtn.addEventListener('click', () => {
+    function closeMenu() {
       overlay.classList.remove('active');
-    });
+    }
 
+    closeBtn.addEventListener('click', closeMenu);
     overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.classList.remove('active');
-      }
+      if (e.target === overlay) closeMenu();
     });
 
     // Выбор суммы
@@ -337,6 +463,8 @@
         amountBtns.forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         selectedAmount = parseInt(btn.dataset.amount);
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = `✨ Пополнить на ${selectedAmount}`;
       });
     });
 
@@ -346,13 +474,16 @@
         balance += selectedAmount;
         saveBalance();
         
-        // Анимация/фидбек
-        tg.HapticFeedback.impactOccurred('medium');
+        // Haptic feedback
+        if (tg.HapticFeedback) {
+          tg.HapticFeedback.impactOccurred('medium');
+        }
         
-        overlay.classList.remove('active');
-        selectedAmount = 0;
-      } else {
-        tg.showAlert('Выберите количество кристаллов!');
+        // Анимация кнопки
+        balanceBtn.classList.add('animate');
+        setTimeout(() => balanceBtn.classList.remove('animate'), 300);
+        
+        closeMenu();
       }
     });
 
